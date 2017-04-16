@@ -1,7 +1,7 @@
 ---
 title: Service Worker 介绍（译）
 date: 2017-03-02 10:55:02
-categories: ['技术', '前端']
+categories: ['技术', '前端', 'PWA']
 tags: ["PWA", "service-worker"]
 ---
 

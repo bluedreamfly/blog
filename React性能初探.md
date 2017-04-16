@@ -1,7 +1,7 @@
 ---
 title: React性能初探
 date: 2016-09-06 10:47:14
-categories: ["技术", "前端"]
+categories: ["技术", "前端", 'React']
 tags: ["react", "immutable"]
 ---
 
