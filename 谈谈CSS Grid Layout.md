@@ -35,13 +35,31 @@ categories: ['技术', '前端', 'CSS']
 
 ```css
 .container {
-	display: grid;
-		//grid 块级网格布局
-		//inline-grid: 行级网格布局
-		//subgrid
-	grid-template-columns: 200px auto 200px;
+  display: grid;
+	  //grid 块级网格布局
+	  //inline-grid: 行级网格布局
+	  //subgrid
+	//写法一
+  grid-template-columns: 200px auto 200px;
+  //写法二
+  grid-template-columns: [first] 200px [line2] auto [line3] 200px [last];
+
+  //写法一
+	grid-template-rows: 200px auto 200px;
+  //写法二
+	grid-template-rows: [row1-start] 200px [row2-start] auto [row3-start] 200px;
 }
 ```
+
+上面的这段css实现了三行三列网格布局，并且首尾两列分别为200px，因为中间列是auto，并且因为是块级网格布局，所以就自动填充剩余的空间，如果是行级网格布局的话那就是网格单元自身大小。那么其实很关键的css属性就是`grid-template-column`和`grid-template-rows`。它们的值可以长度、可以是百分比（百分比是剩余空间的百分比），也可以是`fr`单位(fr的原理跟flexbox一样，就是根据比例平分剩余空间)。
+
+
+
+
+
+
+
+
 
 
 
