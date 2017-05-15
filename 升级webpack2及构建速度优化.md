@@ -1,5 +1,5 @@
 ---
-title: 升级webpack2及构建速度优化1
+title: 升级webpack2及构建速度优化
 date: 2017-05-15
 categories: ["技术", "前端", 'webpack2']
 tags: ["webpack"]
