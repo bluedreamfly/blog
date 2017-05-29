@@ -11,12 +11,12 @@ tags: ["native", "react-native"]
 ```shell
   react-native init AmapTest
 ```
-安装完之后可以先跑起来，万一程序在这里本身就出问题了，接下来的更多操作让你更难定位出问题在哪。
+安装完之后可以先跑起来，万一程序在这里本身就出问题了，接下来的更多操作让你更难定位出问题在哪。
 
 ```shell
   react-native run-ios
 ```
-当一切都没问题了，那么下面会涉及到native开发，所以没native半点基础的我建议先去大概了解下native开发的基础知识。下面我需要安装高德地图的SDK，这有几种方式，可以手动，但为了简单直接我们用`CocoaPods`IOS开发依赖工具，其实就像`npm`、`yarn`一样，我们需要写要安装的依赖库和相应的版本，就像`package.json`依赖配置文件一样。在刚才新建项目的ios目录下新建一个Podfile配置文件，内容如下：
+当一切都没问题了，那么下面会涉及到native开发，所以没native半点基础的我建议先去大概了解下native开发的基础知识。下面我需要安装高德地图的SDK，这有几种方式，可以手动，但为了简单直接我们用`CocoaPods`IOS开发依赖工具，其实就像`npm`、`yarn`一样，我们需要写要安装的依赖库和相应的版本，就像`package.json`依赖配置文件一样。在刚才新建项目的ios目录下新建一个Podfile配置文件，内容如下：
 ```shell
 platform :ios, '8.0'
 
@@ -27,21 +27,21 @@ target 'AmapTest' do
 end
 
 ```
-至于需要引入哪些库看你的项目需求。那么接下来的命令也跟`npm install`类似：
+至于需要引入哪些库看你的项目需求。那么接下来的命令也跟`npm install`类似：
 ```shell
 pod install
 ```
-到这里依赖库就都安装好了，那么我们可以打开项目来进行编码了。慢着，这里有个很关键的项目是通过那个文件打开，如果没有引入其他iOS项目，那么双击`ios/AmapTest.xcodeproj`就可以了。因为我们引入三方项目，这是会在ios目录下生成`AmapTest.xcworkspace`，这是一个工作空间，可以容纳多个项目，这时我们双击这个文件就可以，这样就包含我们本身的项目和高德地图的项目。
+到这里依赖库就都安装好了，那么我们可以打开项目来进行编码了。慢着，这里有个很关键的项目是通过那个文件打开，如果没有引入其他iOS项目，那么双击`ios/AmapTest.xcodeproj`就可以了。因为我们引入三方项目，这是会在ios目录下生成`AmapTest.xcworkspace`，这是一个工作空间，可以容纳多个项目，这时我们双击这个文件就可以，这样就包含我们本身的项目和高德地图的项目。
 
-其实我感觉环境搭建还是相当麻烦，特别是对于新手来说，被各种配置搞得晕头转向的，但这都是一个过程，慢慢也就知道这些配置的意思了。
+其实我感觉环境搭建还是相当麻烦，特别是对于新手来说，被各种配置搞得晕头转向的，但这都是一个过程，慢慢也就知道这些配置的意思了。
 
-那就让我们开始写代码吧。首先我们需要注册一下前面注册好得到的高德地图的key
+那就让我们开始写代码吧。首先我们需要注册一下前面注册好得到的高德地图的key
 ```Object-C
 #import <AMapFoundationKit/AMapFoundationKit.h>
-[AMapServices sharedServices].apiKey = @"你申请的key";
+[AMapServices sharedServices].apiKey = @"你申请的key";
 
 ```
-接下来需要创建一个地图方法的模块，一般我们需要创建这样的两个文件，我这边的暴露模块名字为Amap，所以需要创建两个文件，一个是Amap.m和AmapManger.m，但是为了看起来比较直观我们就创建一个AmapManger.m就可以，但这并不是最好的写法。最好是将视图相应的管理放在Amap.m这件，然后AmapManger.m主要是管理需要暴露给js调用的方法。这样就算不是用作react-native，这个模块也可以重用。但这边我为了直观就都写到AmapManger.m，真实的项目不建议这么写。那么接下来我们来看看AmapManger.m的代码。
+接下来需要创建一个地图方法的模块，一般我们需要创建这样的两个文件，我这边的暴露模块名字为Amap，所以需要创建两个文件，一个是Amap.m和AmapManger.m，但是为了看起来比较直观我们就创建一个AmapManger.m就可以，但这并不是最好的写法。最好是将视图相应的管理放在Amap.m这件，然后AmapManger.m主要是管理需要暴露给js调用的方法。这样就算不是用作react-native，这个模块也可以重用。但这边我为了直观就都写到AmapManger.m，真实的项目不建议这么写。那么接下来我们来看看AmapManger.m的代码。
 ```
 #import <MAMapKit/MAMapKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -72,13 +72,13 @@ RCT_EXPORT_METHOD(addPoint:(nonnull NSNumber *)reactTag
 {
   [self.bridge.uiManager addUIBlock:
    ^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, MAMapView *> *viewRegistry) {
-     //数据转换
+     //数据转换
      //第一个点
      double lat = [[RCTConvert NSNumber:args[@"lat"]] doubleValue];
      double lon = [[RCTConvert NSNumber:args[@"lon"]] doubleValue];
      
      NSLog(@"long %f lat %f", lon, lat);
-     //获取注册的视图对象，在js端是通过ref来引用的
+     //获取注册的视图对象，在js端是通过ref来引用的
      //第二个点
      MAMapView *view = viewRegistry[reactTag];
      if (!view || ![view isKindOfClass:[MAMapView class]]) {
@@ -95,7 +95,7 @@ RCT_EXPORT_METHOD(addPoint:(nonnull NSNumber *)reactTag
    }];
 }
 
-//绘制大头针标注对应的配置，通过代理的方式调用
+//绘制大头针标注对应的配置，通过代理的方式调用
 -(MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation
 {
   if ([annotation isKindOfClass:[MAPointAnnotation class]])
@@ -118,12 +118,12 @@ RCT_EXPORT_METHOD(addPoint:(nonnull NSNumber *)reactTag
 @end
 ```
 
-这边我重点解释2个点：
+这边我重点解释2个点：
 
-- 就是js调用到原生对象需要进行转换，通过调用RCTConvert来进行转换
-- 就是在uiManager里维护的视图列表获取对应要操作的视图
+- 就是js调用到原生对象需要进行转换，通过调用RCTConvert来进行转换
+- 就是在uiManager里维护的视图列表获取对应要操作的视图
 
-到现在原生部分的代码已经完成，接下来就是在js端的调用。我们需要有这么有一个组件来对原生组件暴露的方法进行封装，让写业务的同学感受不到native端的东西。那么我们创建一个Amap组件：
+到现在原生部分的代码已经完成，接下来就是在js端的调用。我们需要有这么有一个组件来对原生组件暴露的方法进行封装，让写业务的同学感受不到native端的东西。那么我们创建一个Amap组件：
 
 ```
 //Amap component
@@ -143,7 +143,7 @@ class Amap extends React.Component {
 
   addPoint(obj) {
     ／*原生方法的调用 
-      findNodeHandle(this.ref) 这是获取维护在uiManager组件列表的视图引用
+      findNodeHandle(this.ref) 这是获取维护在uiManager组件列表的视图引用
     *／
     
     NativeModules.Amap.addPoint(findNodeHandle(this.ref), obj);
