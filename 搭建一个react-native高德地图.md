@@ -152,7 +152,7 @@ class Amap extends React.Component {
 Amap.propTypes = {
   ...View.propTypes
 };
-const RNAmap = requireNativeComponent('Amap', CustomMap);
+const RNAmap = requireNativeComponent('Amap', Amap);
 
 module.exports = Amap;
 
