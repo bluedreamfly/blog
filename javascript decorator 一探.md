@@ -19,12 +19,12 @@ public class User implements Serializable {
   @NotNull(message = "姓名不能为空")
   private String name;
 
-  //年龄最小10最大20 不在此范围报错
+  //年龄最小10最大20 不在此范围报错
   @Min(10) 
   @Max(20)
   private Integer age;
 
-  //原来要写字段的getter和setter因为有了@Data注解，不用写，是不是很方便
+  //原来要写字段的getter和setter因为有了@Data注解，不用写，是不是很方便
   public String getId() {
     return id;
   }
