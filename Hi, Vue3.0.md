@@ -149,9 +149,15 @@ function createSetter(isReadonly = false, shallow = false) {
     return result
   }
 }
+
 ```
+这个文件里面的其他代码逻辑差不多就是类似的，大家自行理解，接下来我们讲讲`collectionHandlers.ts`
 
+### collectionHandlers.ts
 
+```javascript
+
+```
 
 
 
